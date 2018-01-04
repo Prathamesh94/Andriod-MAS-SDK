@@ -31,6 +31,7 @@ import java.util.List;
  */
 public abstract class MASGroup implements MASTransformable, MASGroupIdentity {
 
+
     public static MASGroup newInstance() {
 
         MASGroup masGroup = new MASGroup() {
@@ -326,4 +327,13 @@ public abstract class MASGroup implements MASTransformable, MASGroupIdentity {
      * @param callback Callback with either success or error.
      */
     public abstract void delete(MASCallback<Void> callback);
+
+
+    public abstract void getGroupByMember(MASUser member, MASCallback<List<MASGroup>> callback);
+    public abstract void getGroupMetaData(MASCallback<GroupAttributes> callback);
+    public abstract void getGroupsByFilter(MASFilteredRequest filteredRequest, MASCallback<List<MASGroup>> callback);
+    public abstract void getAllGroups(String owner, MASCallback<List<MASGroup>> callback);
+    public abstract void getGroupByGroupName(String groupName, MASCallback<List<MASGroup>> callback);
+    public abstract void getGroupById(String id, MASCallback<MASGroup> callback);
+
 }

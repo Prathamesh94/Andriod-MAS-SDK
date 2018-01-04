@@ -723,4 +723,18 @@ public abstract class MASUser implements MASMessenger, MASUserIdentity, ScimUser
      */
     @TargetApi(23)
     public abstract void removeSessionLock(MASCallback<Void> callback);
+
+
+    public abstract void getUserById(String id, MASCallback<MASUser> callback);
+    public abstract void getUsersByFilter(MASFilteredRequest filteredRequest, MASCallback<List<MASUser>> callback);
+    public abstract void getUserMetaData(MASCallback<UserAttributes> callback);
+    public abstract void sendMessage(MASTopic topic, MASMessage message, MASCallback<Void> callback);
+    public abstract void sendMessage(MASMessage message, MASUser user, MASCallback<Void> callback);
+    public abstract void sendMessage(MASMessage message, MASUser user, String topic, MASCallback<Void> callback);
+    public abstract void sendMessage(MASMessage message, MASGroup group, MASCallback<Void> callback);
+    public abstract void sendMessage(MASMessage message, MASGroup group,String topic, MASCallback<Void> callback);
+    public abstract void startListeningToMyMessages(MASCallback<Void> callback);
+    public abstract void stopListeningToMyMessages(MASCallback<Void> callback);
+
+
 }

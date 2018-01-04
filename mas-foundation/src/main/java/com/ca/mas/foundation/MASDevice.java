@@ -83,4 +83,7 @@ public abstract class MASDevice implements Device {
         return current;
     }
 
+
+    public abstract void deregister(final MASCallback<Void> callback);
+
 }

@@ -45,10 +45,6 @@ import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 
-import net.minidev.json.JSONStyle;
-import net.minidev.json.JSONValue;
-import net.minidev.json.reader.JsonWriterI;
-
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -642,13 +638,13 @@ public class MAS {
     }
 
 
-    static {
-        JSONValue.defaultWriter.registerWriter(new JsonWriterI<JSONObject>() {
-            public void writeJSONString(JSONObject value, Appendable out, JSONStyle compression) throws IOException {
-                out.append(value.toString());
-            }
-        }, JSONObject.class);
-    }
+//    static {
+//        JSONValue.defaultWriter.registerWriter(new JsonWriterI<JSONObject>() {
+//            public void writeJSONString(JSONObject value, Appendable out, JSONStyle compression) throws IOException {
+//                out.append(value.toString());
+//            }
+//        }, JSONObject.class);
+//    }
 
     /**
      * Signs the provided JWT {@link MASClaims} object with the device registered private key using SHA-256 hash algorithm
