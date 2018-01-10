@@ -6,9 +6,11 @@
  *
  */
 
-include ':mas', ':masui', ':mas-connecta', ':mas-storage', ':mas-identity-management', ':mas-foundation', ':mas-test'
+//include ':mas', ':masui', ':mas-connecta', ':mas-storage', ':mas-identity-management', ':mas-foundation', ':mas-test'
+include ':mas-foundation', ':mas-test'
 
 //Example App
+/*
 include ':SingleSignOnSample'
 include ':MASStorageSample'
 include ':MASAccessAPISample'
@@ -27,8 +29,10 @@ project(':MASSessionUnlockSample').projectDir = new File('samples/MASSessionUnlo
 project(':MASSecureAPISample').projectDir = new File('samples/MASSecureAPISample')
 project(':MASPubSubSample').projectDir = new File('samples/MASPubSubSample')
 
+
 //MASUnit
 include ':MASUnit'
+*/
 
 //Knox
 //include ':Knox', ':SmcControllerSample', ':SamsungLicenseActivationSample'

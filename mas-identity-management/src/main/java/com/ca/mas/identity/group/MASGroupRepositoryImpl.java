@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.ca.mas.core.http.MAGResponseBody;
 import com.ca.mas.foundation.FoundationConsts;
 import com.ca.mas.foundation.MAS;
 import com.ca.mas.foundation.MASCallback;
@@ -19,6 +18,7 @@ import com.ca.mas.foundation.MASGroup;
 import com.ca.mas.foundation.MASRequest;
 import com.ca.mas.foundation.MASRequestBody;
 import com.ca.mas.foundation.MASResponse;
+import com.ca.mas.foundation.MASResponseBody;
 import com.ca.mas.foundation.MASUser;
 import com.ca.mas.foundation.notify.Callback;
 import com.ca.mas.identity.common.MASFilteredRequest;
@@ -51,7 +51,7 @@ public class MASGroupRepositoryImpl implements MASGroupRepository {
                 + FoundationConsts.FSLASH + id))
                 .header(IdentityConsts.HEADER_KEY_ACCEPT, IdentityConsts.HEADER_VALUE_ACCEPT)
                 .header(IdentityConsts.HEADER_KEY_CONTENT_TYPE, IdentityConsts.HEADER_VALUE_CONTENT_TYPE)
-                .responseBody(MAGResponseBody.jsonBody())
+                .responseBody(MASResponseBody.jsonBody())
                 .get()
                 .build();
 
@@ -129,7 +129,7 @@ public class MASGroupRepositoryImpl implements MASGroupRepository {
         MASRequest masRequest = new MASRequest.MASRequestBuilder(uri)
                 .header(IdentityConsts.HEADER_KEY_ACCEPT, IdentityConsts.HEADER_VALUE_ACCEPT)
                 .header(IdentityConsts.HEADER_KEY_CONTENT_TYPE, IdentityConsts.HEADER_VALUE_CONTENT_TYPE)
-                .responseBody(MAGResponseBody.jsonBody())
+                .responseBody(MASResponseBody.jsonBody())
                 .get()
                 .build();
 
@@ -155,7 +155,7 @@ public class MASGroupRepositoryImpl implements MASGroupRepository {
             MASRequest masRequest = new MASRequest.MASRequestBuilder(Uri.parse(IdentityUtil.getGroupPath()))
                     .header(IdentityConsts.HEADER_KEY_ACCEPT, IdentityConsts.HEADER_VALUE_ACCEPT)
                     .header(IdentityConsts.HEADER_KEY_CONTENT_TYPE, IdentityConsts.HEADER_VALUE_CONTENT_TYPE)
-                    .responseBody(MAGResponseBody.jsonBody())
+                    .responseBody(MASResponseBody.jsonBody())
                     .post(MASRequestBody.jsonBody(group.getAsJSONObject()))
                     .build();
 
@@ -192,7 +192,7 @@ public class MASGroupRepositoryImpl implements MASGroupRepository {
             MASRequest masRequest = new MASRequest.MASRequestBuilder(Uri.parse(url))
                     .header(IdentityConsts.HEADER_KEY_ACCEPT, IdentityConsts.HEADER_VALUE_ACCEPT)
                     .header(IdentityConsts.HEADER_KEY_CONTENT_TYPE, IdentityConsts.HEADER_VALUE_CONTENT_TYPE)
-                    .responseBody(MAGResponseBody.jsonBody())
+                    .responseBody(MASResponseBody.jsonBody())
                     .delete(MASRequestBody.jsonBody(group.getAsJSONObject()))
                     .build();
 
@@ -217,7 +217,7 @@ public class MASGroupRepositoryImpl implements MASGroupRepository {
         String schemaPath = IdentityUtil.getSchemasPath() + FoundationConsts.FSLASH;
         MASRequest masRequest = new MASRequest.MASRequestBuilder(Uri.parse(schemaPath
                 + IdentityConsts.SCHEMA_GROUP))
-                .responseBody(MAGResponseBody.jsonBody())
+                .responseBody(MASResponseBody.jsonBody())
                 .get()
                 .build();
 
@@ -269,7 +269,7 @@ public class MASGroupRepositoryImpl implements MASGroupRepository {
             MASRequest masRequest = new MASRequest.MASRequestBuilder(Uri.parse(updateUrl))
                     .header(IdentityConsts.HEADER_KEY_ACCEPT, IdentityConsts.HEADER_VALUE_ACCEPT)
                     .header(IdentityConsts.HEADER_KEY_CONTENT_TYPE, IdentityConsts.HEADER_VALUE_CONTENT_TYPE)
-                    .responseBody(MAGResponseBody.jsonBody())
+                    .responseBody(MASResponseBody.jsonBody())
                     .put(MASRequestBody.jsonBody(group.getAsJSONObject()))
                     .build();
 

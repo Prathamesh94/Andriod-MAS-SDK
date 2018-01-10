@@ -151,7 +151,7 @@ public class BluetoothLeCentralRenderer extends PollingRenderer {
      * @param e       Exception The exception for the error.
      */
     @Override
-    public void onError(int code, String message, Exception e) {
+    protected void onError(int code, String message, Exception e) {
         close();
     }
 

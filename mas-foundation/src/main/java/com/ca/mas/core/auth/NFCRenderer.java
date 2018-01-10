@@ -116,7 +116,7 @@ public class NFCRenderer extends PollingRenderer {
     }
 
     @Override
-    public void onError(int code, String message, Exception e) {
+    protected void onError(int code, String message, Exception e) {
     }
 
     @SuppressWarnings("MissingPermission")

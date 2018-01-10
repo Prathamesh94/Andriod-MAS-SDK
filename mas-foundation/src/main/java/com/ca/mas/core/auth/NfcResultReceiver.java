@@ -18,14 +18,5 @@ import org.json.JSONObject;
  */
 public abstract class NfcResultReceiver extends MAGResultReceiver implements AuthResultReceiver {
 
-   private JSONObject data;
 
-    public JSONObject getData() {
-        return data;
-    }
-
-    @Override
-    public void setData(JSONObject data) {
-        this.data = data;
-    }
 }

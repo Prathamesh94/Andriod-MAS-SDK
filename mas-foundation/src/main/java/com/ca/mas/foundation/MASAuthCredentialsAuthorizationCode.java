@@ -14,6 +14,7 @@ import android.util.Pair;
 
 import com.ca.mas.core.MobileSsoConfig;
 import com.ca.mas.core.conf.ConfigurationManager;
+import com.ca.mas.core.conf.ConfigurationProvider;
 import com.ca.mas.core.context.MssoContext;
 import com.ca.mas.core.oauth.CodeVerifierCache;
 
@@ -54,12 +55,12 @@ public class MASAuthCredentialsAuthorizationCode implements MASAuthCredentials {
     }
 
     @Override
-    public Map<String, List<String>> getHeaders(MssoContext context) {
+    public Map<String, List<String>> getHeaders() {
         Map<String, List<String>> headers = new HashMap<>();
         List<String> authorizationValue = new ArrayList<>();
         authorizationValue.add("Bearer " + code);
         headers.put("authorization", authorizationValue);
-        String redirectUrl = context.getConfigurationProvider().getProperty(MobileSsoConfig.PROP_AUTHORIZE_REDIRECT_URI);
+        String redirectUrl = ConfigurationManager.getInstance().getConnectedGatewayConfigurationProvider().getProperty(MobileSsoConfig.PROP_AUTHORIZE_REDIRECT_URI);
         if (redirectUrl != null) {
             List<String> redirectValue = new ArrayList<>();
             redirectValue.add(redirectUrl);
@@ -73,13 +74,13 @@ public class MASAuthCredentialsAuthorizationCode implements MASAuthCredentials {
     }
 
     @Override
-    public List<Pair<String,String>> getParams(MssoContext context) {
+    public List<Pair<String,String>> getParams() {
         ArrayList<Pair<String, String>> params = new ArrayList<>();
         params.add(new Pair<String, String>("code", code));
         if (codeVerifier != null) {
             params.add(new Pair<String, String>("code_verifier", codeVerifier));
         }
-        String redirectUrl = context.getConfigurationProvider().getProperty(MobileSsoConfig.PROP_AUTHORIZE_REDIRECT_URI);
+        String redirectUrl = ConfigurationManager.getInstance().getConnectedGatewayConfigurationProvider().getProperty(MobileSsoConfig.PROP_AUTHORIZE_REDIRECT_URI);
         if (redirectUrl != null) {
             params.add(new Pair<String, String>("redirect_uri", redirectUrl));
         }

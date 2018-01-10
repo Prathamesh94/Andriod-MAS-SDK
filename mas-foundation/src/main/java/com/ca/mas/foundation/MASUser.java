@@ -22,7 +22,6 @@ import com.ca.mas.core.EventDispatcher;
 import com.ca.mas.core.MobileSso;
 import com.ca.mas.core.MobileSsoFactory;
 import com.ca.mas.core.error.MAGError;
-import com.ca.mas.core.http.MAGResponse;
 import com.ca.mas.core.security.LockableEncryptionProvider;
 import com.ca.mas.core.security.SecureLockException;
 import com.ca.mas.core.storage.Storage;
@@ -108,7 +107,7 @@ public abstract class MASUser implements MASMessenger, MASUserIdentity, ScimUser
         MobileSso mobileSso = MobileSsoFactory.getInstance();
         mobileSso.authenticate(userName, cPassword, new MASResultReceiver<JSONObject>() {
             @Override
-            public void onSuccess(MAGResponse<JSONObject> response) {
+            public void onSuccess(MASResponse<JSONObject> response) {
                 login(callback);
             }
 
@@ -127,7 +126,7 @@ public abstract class MASUser implements MASMessenger, MASUserIdentity, ScimUser
         MobileSso mobileSso = MobileSsoFactory.getInstance();
         mobileSso.authenticate(idToken, new MASResultReceiver<JSONObject>() {
             @Override
-            public void onSuccess(MAGResponse<JSONObject> response) {
+            public void onSuccess(MASResponse<JSONObject> response) {
                 login(callback);
             }
 
@@ -146,7 +145,7 @@ public abstract class MASUser implements MASMessenger, MASUserIdentity, ScimUser
         MobileSso mobileSso = MobileSsoFactory.getInstance();
         mobileSso.authenticate(credentials, new MASResultReceiver<JSONObject>() {
             @Override
-            public void onSuccess(MAGResponse<JSONObject> response) {
+            public void onSuccess(MASResponse<JSONObject> response) {
                 login(callback);
             }
 
@@ -188,7 +187,7 @@ public abstract class MASUser implements MASMessenger, MASUserIdentity, ScimUser
         mobileSso.authenticate(authorizationResponse.getAuthorizationCode(),
                 authorizationResponse.getState(), new MASResultReceiver<JSONObject>() {
                     @Override
-                    public void onSuccess(MAGResponse<JSONObject> response) {
+                    public void onSuccess(MASResponse<JSONObject> response) {
                         login(callback);
                     }
 

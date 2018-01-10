@@ -13,9 +13,9 @@ import android.util.Log;
 import com.ca.mas.core.MobileSsoListener;
 import com.ca.mas.core.error.MAGErrorCode;
 import com.ca.mas.core.error.MAGRuntimeException;
-import com.ca.mas.core.http.MAGRequest;
-import com.ca.mas.core.oauth.GrantProvider;
+import com.ca.mas.foundation.MASGrantProvider;
 import com.ca.mas.core.store.StorageProvider;
+import com.ca.mas.foundation.MASConnectionListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,10 +43,10 @@ public class ConfigurationManager {
     private String configurationFileName = null;
     private boolean enablePKCE = true;
 
-    private MAGRequest.MAGConnectionListener connectionListener;
+    private MASConnectionListener connectionListener;
     private MobileSsoListener mobileSsoListener;
 
-    private GrantProvider defaultGrantProvider = GrantProvider.PASSWORD;
+    private MASGrantProvider defaultGrantProvider = MASGrantProvider.PASSWORD;
 
     private static ConfigurationManager instance = new ConfigurationManager();
 
@@ -354,11 +354,11 @@ public class ConfigurationManager {
         this.configurationFileName = configurationFileName;
     }
 
-    public MAGRequest.MAGConnectionListener getConnectionListener() {
+    public MASConnectionListener getConnectionListener() {
         return connectionListener;
     }
 
-    public void setConnectionListener(MAGRequest.MAGConnectionListener connectionListener) {
+    public void setConnectionListener(MASConnectionListener connectionListener) {
         this.connectionListener = connectionListener;
     }
 
@@ -370,11 +370,11 @@ public class ConfigurationManager {
         this.mobileSsoListener = mobileSsoListener;
     }
 
-    public GrantProvider getDefaultGrantProvider() {
+    public MASGrantProvider getDefaultGrantProvider() {
         return defaultGrantProvider;
     }
 
-    public void setDefaultGrantProvider(GrantProvider defaultGrantProvider) {
+    public void setDefaultGrantProvider(MASGrantProvider defaultGrantProvider) {
         this.defaultGrantProvider = defaultGrantProvider;
     }
 

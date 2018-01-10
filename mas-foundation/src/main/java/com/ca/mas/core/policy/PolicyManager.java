@@ -15,7 +15,7 @@ import com.ca.mas.core.context.MssoContext;
 import com.ca.mas.core.error.MAGException;
 import com.ca.mas.core.error.MAGServerException;
 import com.ca.mas.core.error.MAGStateException;
-import com.ca.mas.core.http.MAGResponse;
+import com.ca.mas.foundation.MASResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,7 @@ public class PolicyManager {
      *                            the request cannot be processed in the current MSSO engine state (or should be retried).
      * @throws MAGException Exception occur in MAG Engine
      */
-    public void processResponse(RequestInfo request, MAGResponse response) throws MAGException ,MAGServerException{
+    public void processResponse(RequestInfo request, MASResponse response) throws MAGException ,MAGServerException{
         // For now, we will serialize all policies
         synchronized (policySync) {
             for (MssoAssertion policy : policies) {

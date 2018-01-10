@@ -28,10 +28,6 @@ import com.ca.mas.core.client.ServerClient;
 import com.ca.mas.core.conf.ConfigurationManager;
 import com.ca.mas.core.error.MAGError;
 import com.ca.mas.core.http.MAGHttpClient;
-import com.ca.mas.core.http.MAGRequest;
-import com.ca.mas.core.http.MAGResponse;
-import com.ca.mas.core.http.MAGResponseBody;
-import com.ca.mas.core.oauth.GrantProvider;
 import com.ca.mas.core.service.AuthenticationProvider;
 import com.ca.mas.core.service.MssoIntents;
 import com.ca.mas.core.store.StorageProvider;
@@ -53,7 +49,6 @@ import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
 import java.security.PrivateKey;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -341,9 +336,9 @@ public class MAS {
                             .host(uri)
                             .build();
                     MAGHttpClient client = new MAGHttpClient();
-                    MAGRequest request = new MAGRequest.MAGRequestBuilder(url).
-                            responseBody(MAGResponseBody.jsonBody()).setPublic().build();
-                    MAGResponse<JSONObject> response = client.execute(request, enrollmentConfig);
+                    MASRequest request = new MASRequest.MASRequestBuilder(url).
+                            responseBody(MASResponseBody.jsonBody()).setPublic().build();
+                    MASResponse<JSONObject> response = client.execute(request, enrollmentConfig);
                     if (response.getResponseCode() != HttpURLConnection.HTTP_OK) {
                         throw ServerClient.createServerException(response, MASServerException.class);
                     }
@@ -369,42 +364,15 @@ public class MAS {
      *                 <li>  application/json: {@link JSONObject}</li>
      *                 <li>  text/plain: {@link String}</li>
      *                 </ul>
-     *                 Developers can define a response object type with {@link MASRequest.MASRequestBuilder#responseBody(MAGResponseBody)}.
+     *                 Developers can define a response object type with {@link MASRequest.MASRequestBuilder#responseBody(MASResponseBody)}.
      * @return The request ID.
      */
     public static <T> long invoke(final MASRequest request, final MASCallback<MASResponse<T>> callback) {
 
         return MobileSsoFactory.getInstance().processRequest(request, new MAGResultReceiver<T>(Callback.getHandler(callback)) {
             @Override
-            public void onSuccess(final MAGResponse<T> response) {
-                Callback.onSuccess(callback, new MASResponse<T>() {
-                    public MASResponseBody<T> getBody() {
-                        return new MASResponseBody<T>() {
-                            @Override
-                            public T getContent() {
-                                if (response.getBody() == null) {
-                                    return null;
-                                }
-                                return response.getBody().getContent();
-                            }
-                        };
-                    }
-
-                    @Override
-                    public Map<String, List<String>> getHeaders() {
-                        return response.getHeaders();
-                    }
-
-                    @Override
-                    public int getResponseCode() {
-                        return response.getResponseCode();
-                    }
-
-                    @Override
-                    public String getResponseMessage() {
-                        return response.getResponseMessage();
-                    }
-                });
+            public void onSuccess(final MASResponse<T> response) {
+                Callback.onSuccess(callback, new MASApiResponse<T>(response));
             }
 
             @Override
@@ -503,10 +471,10 @@ public class MAS {
     public static void setGrantFlow(@MASGrantFlow int type) {
         switch (type) {
             case MASConstants.MAS_GRANT_FLOW_CLIENT_CREDENTIALS:
-                ConfigurationManager.getInstance().setDefaultGrantProvider(GrantProvider.CLIENT_CREDENTIALS);
+                ConfigurationManager.getInstance().setDefaultGrantProvider(MASGrantProvider.CLIENT_CREDENTIALS);
                 break;
             case MASConstants.MAS_GRANT_FLOW_PASSWORD:
-                ConfigurationManager.getInstance().setDefaultGrantProvider(GrantProvider.PASSWORD);
+                ConfigurationManager.getInstance().setDefaultGrantProvider(MASGrantProvider.PASSWORD);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid Flow Type");

@@ -34,12 +34,12 @@ public class MASAuthCredentialsClientCredentials implements MASAuthCredentials {
     }
 
     @Override
-    public Map<String, List<String>> getHeaders(MssoContext context) {
+    public Map<String, List<String>> getHeaders() {
         return null;
     }
 
     @Override
-    public List<Pair<String, String>> getParams(MssoContext context) {
+    public List<Pair<String, String>> getParams() {
         return null;
     }
 

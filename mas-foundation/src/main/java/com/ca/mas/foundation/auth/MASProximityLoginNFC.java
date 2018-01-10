@@ -20,12 +20,13 @@ import com.ca.mas.core.MobileSsoFactory;
 import com.ca.mas.core.auth.NFCRenderer;
 import com.ca.mas.core.auth.NfcResultReceiver;
 import com.ca.mas.core.error.MAGError;
-import com.ca.mas.core.http.MAGResponse;
 import com.ca.mas.core.service.Provider;
 import com.ca.mas.foundation.MASCallback;
+import com.ca.mas.foundation.MASResponse;
 import com.ca.mas.foundation.notify.Callback;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -42,18 +43,25 @@ public class MASProximityLoginNFC extends NFCRenderer implements MASProximityLog
 
         MobileSsoFactory.getInstance().authorize(authenticateUrl, new NfcResultReceiver() {
 
+            private JSONObject data;
+
             @Override
-            public void onSuccess(MAGResponse response) {
+            public void setData(JSONObject data) {
+                this.data = data;
+            }
+
+            @Override
+            public void onSuccess(MASResponse response) {
                 String uuid;
                 String address;
                 try {
-                    if (getData() == null) {
+                    if (data == null) {
                         if (DEBUG) Log.w(TAG, "A Json message is expected for NFCResultReceiver.");
                         Callback.onError(callback, new IllegalArgumentException("A Json message is expected for NFCResultReceiver."));
                         return;
                     }
-                    uuid = getData().getString(NFCRenderer.UUID);
-                    address = getData().getString(NFCRenderer.ADDRESS);
+                    uuid = data.getString(NFCRenderer.UUID);
+                    address = data.getString(NFCRenderer.ADDRESS);
                 } catch (JSONException e) {
                     if (DEBUG) Log.w(TAG, "Invalid Json message from NFC Session Sharing", e);
                     Callback.onError(callback, e);
@@ -110,11 +118,6 @@ public class MASProximityLoginNFC extends NFCRenderer implements MASProximityLog
     }
 
     @Override
-    public View render() {
-        return super.render();
-    }
-
-    @Override
     public void start() {
         super.onRenderCompleted();
     }
@@ -123,10 +126,5 @@ public class MASProximityLoginNFC extends NFCRenderer implements MASProximityLog
     public void stop() {
         super.close();
     }
-
-    @Override
-    public void onError(int errorCode, String m, Exception e) {
-    }
-
 
 }

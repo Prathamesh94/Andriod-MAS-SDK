@@ -9,9 +9,9 @@
 package com.ca.mas.core.request.internal;
 
 import com.ca.mas.core.context.MssoContext;
-import com.ca.mas.core.http.MAGRequest;
-import com.ca.mas.core.http.MAGResponse;
-import com.ca.mas.core.http.MAGResponseBody;
+import com.ca.mas.foundation.MASRequest;
+import com.ca.mas.foundation.MASResponse;
+import com.ca.mas.foundation.MASResponseBody;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -22,13 +22,13 @@ import java.util.Map;
 public class AuthenticateRequest extends MAGRequestProxy implements LocalRequest {
 
     public AuthenticateRequest() {
-        request = new MAGRequest.MAGRequestBuilder((URI)null).password().build();
+        request = new MASRequest.MASRequestBuilder((URI)null).password().build();
     }
 
     @Override
-    public MAGResponse send(MssoContext context) throws IOException {
+    public MASResponse send(MssoContext context) throws IOException {
         context.clearCredentials();
-        return new MAGResponse() {
+        return new MASResponse() {
 
             @Override
             public Map<String, List<String>> getHeaders() {
@@ -46,7 +46,7 @@ public class AuthenticateRequest extends MAGRequestProxy implements LocalRequest
             }
 
             @Override
-            public MAGResponseBody getBody() {
+            public MASResponseBody getBody() {
                 return null;
             }
         };
