@@ -67,12 +67,12 @@ public class MASResponseBody<T> {
                     throw new RuntimeException(e);
                 }
             }
-            if (contentType.contains("text/plain")) {
+            
                 if (buffer == null || buffer.length == 0) {
                     return (T) "";
                 }
                 return (T) new String(buffer);
-            }
+            
         }
         return (T) buffer;
     }
