@@ -66,13 +66,13 @@ public class MASResponseBody<T> {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-            }
+            }else{
             
                 if (buffer == null || buffer.length == 0) {
                     return (T) "";
                 }
                 return (T) new String(buffer);
-            
+            }
         }
         return (T) buffer;
     }
